@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+  <!-- 处理器映射器 -->
+  
+	   <!-- 别名路径映射器 -->
+	  <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>	  
+	  <bean name="/helloworld1.do" class="com.user.controller.HelloWorldController"/>
+	  <bean name="/listUsers.do" class="com.user.controller.UserController"/>
+	   
+	   <!-- 简单路径映射器 -->
+	   <bean id="helloWorldController" class="com.user.controller.HelloWorldController2"/>
+	   <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/helloworld2.do">helloWorldController</prop>
+			</props>
+		</property>
+	   </bean>
+	   
+ <!-- 处理器适配器 -->
+ 
+ 	<!-- 简单控制器处理器适配器 -->
+ 	 <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>  
+ 	
+ 	<!-- Http请求处理器适配器 -->
+ 	 <bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
+ 	 
+ <!-- 视图解析器   -->
+ 
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+        <property name="prefix" value="/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+   
+</beans>
